@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Semester Schedule Viewer - Department of CSE</title>
+        <style>
+            .vertAlign {
+                vertical-align: top
+            }
+            .ui-widget,.ui-widget .ui-widget {
+                font-size: 85%;
+            }
+            .ui-datatable {
+                display: table;
+            }
+            .ui-datatable table {
+                table-layout: auto !important;
+            }
+            @media print {
+                .ui-panelgrid {
+                    display: none;
+                }
+                @page {
+                    size: landscape;
+                }
+            }
+            .myTable thead {
+                display:none;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <center>
+                <p:panelGrid id="semesterPicker" columns="3">
+                    <p:outputLabel value="Semester" />
+                    <p:inputText value="#{scheduleView.semesterNumber}" />
+                    <p:commandButton value="Set" actionListener="#{scheduleView.onSemesterChange}" update="sectionsTable" />
+                </p:panelGrid>
+                <p:panelGrid id="tools" columns="7" style="margin-top:20px">
+                    <p:outputLabel value="Course" /><p:inputText value="#{scheduleView.courseFilter}" />
+                    <p:outputLabel value="Room" /><p:inputText value="#{scheduleView.roomFilter}" />
+                    <p:outputLabel value="Faculty" /><p:inputText value="#{scheduleView.facultyFilter}" />
+                    <p:commandButton value="Filter" id="ajax" icon="fa fa-filter" update="sectionsTable" actionListener="#{scheduleView.filterAction}" />
+                </p:panelGrid>
+            </center>
+            
+            <p:spacer height="10" />
+            
+            <p:dataTable var="dayBlock" value="#{scheduleView.dayBlockList}" emptyMessage="" id="sectionsTable" lazy="false" style="margin-bottom:20px">
+                <f:facet name="header">
+                    <p:outputLabel value="Southeast University - Department of CSE Semester Schedule for - #{scheduleView.semesterLabel}"/>
+                    <!--                    <p:row>
+                                            <p:column style="font-weight: bold;"></p:column>
+                                        </p:row>-->
+                </f:facet>
+                <p:column headerText="Day" styleClass="vertAlign">
+                    <h:outputLabel value="#{dayBlock.day.shortName}" />
+                </p:column>
+                <p:column headerText="08:30 AM - 09:50 AM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS0830}" rendered="#{dayBlock.dataFoundS0830}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column headerText="10:00 AM - 11:20 AM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS1000}" rendered="#{dayBlock.dataFoundS1000}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column headerText="11:30 AM - 12:50 PM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS1130}" rendered="#{dayBlock.dataFoundS1130}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column headerText="01:00 PM - 02:20 PM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS0100}" rendered="#{dayBlock.dataFoundS0100}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column headerText="02:30 PM - 03:50 PM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS0230}" rendered="#{dayBlock.dataFoundS0230}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column headerText="04:00 PM - 05:20 PM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS0400}" rendered="#{dayBlock.dataFoundS0400}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column headerText="05:30 PM - 06:20 PM" styleClass="vertAlign">
+                    <p:dataTable styleClass="myTable" var="s" value="#{dayBlock.filteredS0530}" rendered="#{dayBlock.dataFoundS0530}" tableStyle="width:auto" emptyMessage="">
+                        <p:column headerText="Section">
+                            <h:outputText value="#{s.sectionLabel}" />
+                        </p:column>
+                        <p:column headerText="Faculty">
+                            <h:outputText value="#{s.facultyInitials}" />
+                        </p:column>
+                        <p:column headerText="Room">
+                            <h:outputText value="#{s.room}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
