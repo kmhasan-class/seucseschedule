@@ -16,7 +16,7 @@ public enum Day implements Serializable {
     MONDAY,
     TUESDAY,
     WEDNESDAY,
-    //THURSDAY,
+    THURSDAY,
     SATURDAY;
     
     public String getShortName() {

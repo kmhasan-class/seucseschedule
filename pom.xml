@@ -91,6 +91,7 @@
                 <version>2.6</version>
                 <executions>
                     <execution>
+                        <id>1</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy</goal>
@@ -108,6 +109,25 @@
                             </artifactItems>
                         </configuration>
                     </execution>
+                    
+                    <execution>
+                        <id>2</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.jetty</groupId>
+                                    <artifactId>jetty-runner</artifactId>
+                                    <version>9.3.3.v20150827</version>
+                                    <destFileName>jetty-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    
                 </executions>
             </plugin>
         </plugins>

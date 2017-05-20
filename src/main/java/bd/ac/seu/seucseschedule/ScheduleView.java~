@@ -48,18 +48,12 @@ public class ScheduleView implements Serializable {
     private String semesterLabels[] = {"Spring", "Summer", "Fall"};
     private int yearOffset;
     private int currentYear;
-
+    
     public ScheduleView() {
         semesterNumber = 46;
         semesterLabel = "46 - Summer 2017";
 //        semesterNumber = 43;
 //        semesterLabel = "43 - Summer 2016";
-        if (System.getenv("semesterNumber") != null) {
-            semesterNumber = Integer.parseInt(System.getenv("semesterNumber"));
-        }
-        if (System.getenv("semesterLabel") != null) {
-            semesterLabel = System.getenv("semesterLabel");
-        }
         yearOffset = 2002;
         onSemesterChange();
     }
@@ -84,12 +78,9 @@ public class ScheduleView implements Serializable {
         }
 
 //        semesterNumber = Integer.parseInt(semesterLabel.split("\\ ")[0]);
+
         try {
-            String hostname = "my.seu.ac.bd";
-            if (System.getenv("hostname") != null) {
-                hostname = System.getenv("hostname");
-            }
-            URL url = new URL("http://" + hostname + "/~kmhasan/__WebServices/get_schedule_json.php?semester=" + semesterNumber);
+            URL url = new URL("http://my.seu.ac.bd/~kmhasan/__WebServices/get_schedule_json.php?semester=" + semesterNumber);
             readJson(url);
         } catch (MalformedURLException ex) {
             Logger.getLogger(ScheduleView.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,6 +117,7 @@ public class ScheduleView implements Serializable {
 //                if (dayString.equals("THU")) {
 //                    continue;
 //                }
+
                 for (Day d : Day.values()) {
                     if (d.name().startsWith(dayString)) {
                         day = d;

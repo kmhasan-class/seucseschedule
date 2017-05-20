@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="seucseschedule:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="seucseschedule-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="seucseschedule:war exploded" />
+    </root>
+  </artifact>
+</component>
